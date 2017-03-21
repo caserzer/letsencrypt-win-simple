@@ -389,7 +389,7 @@ namespace LetsEncrypt.ACME.Simple
                 {
                     plugin.PrintMenu();
                 }
-                else if (plugin.Name == "Manual")
+                else if (plugin.Name == "Manual" || plugin.Name=="Azure")
                 {
                     plugin.PrintMenu();
                 }
