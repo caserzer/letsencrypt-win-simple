@@ -35,7 +35,7 @@ into the an Azure storage container. And redirect the challenge requests to the 
 
 3. complie this solution and run the app with
 <code>
-letsencrypt --accepttos --azurehost <YOURDOMAIN> --constr <YOURAZURESTORAGECONNECTIONSTRING> --container <STORAGECONTAINERNAME>
+letsencrypt --accepttos --azurehost YOURDOMAIN --constr YOURAZURESTORAGECONNECTIONSTRING --container STORAGECONTAINERNAME
 </code>
 # Settings
 
