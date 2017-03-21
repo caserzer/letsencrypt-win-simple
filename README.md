@@ -23,9 +23,6 @@ into the an Azure storage container. And redirect the challenge requests to the 
                 FileProvider = new AzureFileProvider(Configuration),
                 RequestPath = new PathString("/.well-known/acme-challenge"),
             });
-
-
-
             app.UseStaticFiles( new StaticFileOptions {  ServeUnknownFileTypes = true
                 ,FileProvider = new AzureFileProvider(Configuration)
                 ,
@@ -37,6 +34,7 @@ into the an Azure storage container. And redirect the challenge requests to the 
 <code>
 letsencrypt --accepttos --azurehost YOURDOMAIN --constr YOURAZURESTORAGECONNECTIONSTRING --container STORAGECONTAINERNAME
 </code>
+
 # Settings
 
 Some of the applications' settings can be updated in the app's settings or configuration file. the file is in the application root and is called letsencrypt.exe.config.
