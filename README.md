@@ -1,5 +1,5 @@
 # letsencrypt-win-simple
-A Simple ACME Client for Windows
+A Simple ACME Client for Windows folked from https://github.com/Lone-Coder/letsencrypt-win-simple
 
 # Overview
 
@@ -7,10 +7,36 @@ This is a ACME windows CLI client built in native .net and aims to be as simple 
 
 It's built on top of the [.net ACME protocol library](https://github.com/ebekker/ACMESharp).
 
-# Running
+Add Azure plugin for the Azure storage container.
 
-Download the latest release from https://github.com/Lone-Coder/letsencrypt-win-simple/releases. Unpack and run `letsencrypt.exe`, and follow the messages in the input prompt.
+For asp.net core application hosting on Azure cloud service / Service Fabric which have multi instances it's difficult to 
+put the challenge file to the /.well-known/acme-challenge folder. So this project's intend is to put the challenge file
+into the an Azure storage container. And redirect the challenge requests to the container. 
 
+# How to 
+1. Download the files in AzureFileProvider, add them to your asp.net core , modify the namespace and AzureFileProvider.cs 
+
+2. Register the challenge url in Startup and publish your asp.net application
+<code>
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            {
+                FileProvider = new AzureFileProvider(Configuration),
+                RequestPath = new PathString("/.well-known/acme-challenge"),
+            });
+
+
+
+            app.UseStaticFiles( new StaticFileOptions {  ServeUnknownFileTypes = true
+                ,FileProvider = new AzureFileProvider(Configuration)
+                ,
+                RequestPath = new PathString("/.well-known/acme-challenge")
+            });
+</code>
+
+3. complie this solution and run the app with
+<code>
+letsencrypt --accepttos --azurehost <YOURDOMAIN> --constr <YOURAZURESTORAGECONNECTIONSTRING> --container <STORAGECONTAINERNAME>
+</code>
 # Settings
 
 Some of the applications' settings can be updated in the app's settings or configuration file. the file is in the application root and is called letsencrypt.exe.config.
@@ -62,14 +88,3 @@ Please head to the [Wiki](https://github.com/Lone-Coder/letsencrypt-win-simple/w
 
 See the [Application Settings](https://github.com/Lone-Coder/letsencrypt-win-simple/wiki/Application-Settings) page on the wiki for settings such as how to change the location where certificates are stored, how they're generated, and how often they are renewed among other settings.
 
-# Support
-
-If you run into trouble please open an issue at https://github.com/Lone-Coder/letsencrypt-win-simple/issues
-
-Please check to see if your issue is covered in the [Wiki](https://github.com/Lone-Coder/letsencrypt-win-simple/wiki) before you create a new issue.
-
-If you ran the app and you got an error when it tried to Authorize your site take a look [here](https://github.com/Lone-Coder/letsencrypt-win-simple/wiki/web.config).
-
-# Web.Config Pull Requests
-
-If you submit a pull request that changes the included web.config file and it does not work on stock IIS 7.5 +, it will not be merged in. Instead add a section to the [WIki page](https://github.com/Lone-Coder/letsencrypt-win-simple/wiki/web.config) with your changes.
