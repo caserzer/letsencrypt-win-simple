@@ -81,14 +81,15 @@ namespace LetsEncrypt.ACME.Simple
 
         public override void PrintMenu()
         {
-            if (!String.IsNullOrEmpty(Program.Options.ConStr) && !String.IsNullOrEmpty(Program.Options.Container))
+            if (!String.IsNullOrEmpty(Program.Options.AzureHost) &&!String.IsNullOrEmpty(Program.Options.ConStr) && !String.IsNullOrEmpty(Program.Options.Container))
             { 
                 _conStr = Program.Options.ConStr;
                 _container = Program.Options.Container;
                 var target = new Target()
                 {
-                    Host = Program.Options.ManualHost,
-                    PluginName = Name
+                    Host = Program.Options.AzureHost,
+                    PluginName = Name,
+                    WebRootPath = "c:\\"
                 };
                 Auto(target);
                 Environment.Exit(0);

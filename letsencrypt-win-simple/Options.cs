@@ -63,6 +63,9 @@ namespace LetsEncrypt.ACME.Simple
         [Option(HelpText = "A web proxy address to use.")]
         public string Proxy { get; set; }
 
+        [Option(HelpText = "Azure host domain")]
+        public string AzureHost { get; set; }
+
         [Option(HelpText ="Azure storage connection string")]
         public string ConStr { get; set; }
 
