@@ -62,5 +62,11 @@ namespace LetsEncrypt.ACME.Simple
 
         [Option(HelpText = "A web proxy address to use.")]
         public string Proxy { get; set; }
+
+        [Option(HelpText ="Azure storage connection string")]
+        public string ConStr { get; set; }
+
+        [Option(HelpText ="Container where put the challenge file")]
+        public string Container { get; set; }
     }
 }
